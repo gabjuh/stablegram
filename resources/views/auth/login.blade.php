@@ -65,6 +65,7 @@
                             </div>
                         </div>
                     </form>
+                    <a class="mt-3 btn btn-secondary" href="auth/github">Mit Github anmelden</a>
                 </div>
             </div>
         </div>
