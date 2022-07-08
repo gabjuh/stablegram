@@ -42,7 +42,7 @@
 
                         <div class="row mb-0 mt-3">
                             <div class="col-md-8 ">
-                                <a href="/home" type="submit" class="btn btn-secondary">
+                                <a href="{{ url()->previous() }}" type="submit" class="btn btn-secondary">
                                     {{ __('Cancel') }}
                                 </a>
                                 <button type="submit" class="btn btn-primary">

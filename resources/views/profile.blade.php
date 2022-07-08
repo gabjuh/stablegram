@@ -31,7 +31,7 @@
                         value="0"
                     />
                 </div>
-                <a class="btn btn-primary mt-3" href="#">add post</a>
+                <a class="btn btn-primary mt-3" href="{{ route('create_post') }}">add post</a>
             </div>
         </div>
         <div class="d-flex justify-content-center flex-wrap mt-4">
