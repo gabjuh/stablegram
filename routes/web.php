@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Auth::user() ? redirect('/home') : view('welcome');
 });
 
 Auth::routes();
@@ -23,3 +24,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('auth/{provider}', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
+
+Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show');
+
+Route::get('post/create/', function () {
+    return view('create_post');
+})->name('create_post');
