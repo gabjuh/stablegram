@@ -4,27 +4,24 @@
 <div class="container mt-5" style="max-width:25rem;">
     <div class="row" >
         <div class="d-flex flex-wrap mt-4" >
-            <x-post
-                image="https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
-                created="five minutes ago"
-                likes="1"
-                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime perspiciatis officiis, reiciendis repudiandae fugit magni tenetur incidunt nihil enim esse explicabo, quae architecto distinctio quo libero accusantium minima eum eveniet natus quos officia ducimus? Repudiandae officiis sit, hic ducimus odio non minus dolore voluptas tempora adipisci cumque, nobis inventore eos."
-            />
-            <x-post
-                image="https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
-                created="five minutes ago"
-                likes="1"
-                text="a lot of blabla"
-            />
-            <x-post
-                image="https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
-                created="five minutes ago"
-                likes="1"
-                text="a lot of blabla"
-            />
+            @foreach ($posts as $post)
+                <x-post
+                    {{-- userId="{{ $post->user_id }}" --}}
+                    postId="{{ $post->id }}"
+                    userId="{{ $post->user_id }}"
+                    username="{{ $users[$post->user_id - 1]->name }}"
+                    avatar="{{ $users[$post->user_id - 1]->avatar ?: $image_placeholder }}"
+                    image="{{ $post->file_name }}"
+                    created="{{ $post->created_at }}"
+                    likes="{{ $post->likes }}"
+                    text="{{ $post->description }}"
+                    view="all"
+                />
+            @endforeach
         </div>
         <div class="card w-25 position-fixed p-2" style="margin-left:350px; margin-top: 32px; border-radius:.7rem;">
             <span>Friends</span>
+            <img src="{{ asset('storage/img.jpg') }}" alt="">
 
         </div>
     </div>

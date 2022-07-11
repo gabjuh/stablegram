@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function oauth()
     {
         return $this->hasOne('App\Models\SocialAuth');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
     }
 }

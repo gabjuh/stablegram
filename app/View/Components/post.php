@@ -4,20 +4,23 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class post extends Component
+class Post extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
+
     public $image;
+    public $avatar;
     public $created = 'lopikula';
     public $likes;
     public $text;
 
-    public function __construct($image, $text, $created = 0, $likes = 0)
+    public function __construct($avatar, $image, $text, $created = 0, $likes = 0)
     {
+        $this->avatar = $avatar;
         $this->image = $image;
         $this->text = $text;
         $this->likes = $likes;

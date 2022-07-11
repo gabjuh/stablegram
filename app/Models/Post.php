@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialAuth extends Model
+class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'provider_name', 'provider_id', 'avatar'];
+    protected $fillable = [
+        'user_id',
+        'file_name',
+        'description',
+        'likes',
+    ];
 
     public function user()
     {

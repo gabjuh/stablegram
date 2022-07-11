@@ -27,6 +27,19 @@ Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginControlle
 
 Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show');
 
-Route::get('post/create/', function () {
+// create (open form)
+Route::get('posts/create', function() {
     return view('create_post');
 })->name('create_post');
+
+// store
+Route::post('posts/', 'App\Http\Controllers\PostController@store')->name('store_post');
+
+Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy')->name('destroy_post');
+
+// Route::get('posts/create', function () {
+    // return view('create_post');
+// })->name('create_post');
+// Route::resource('posts', 'PostController')->only('')
+
+// Route::resource('/memories', 'MemoryController')->except(['show'])->names('memories');

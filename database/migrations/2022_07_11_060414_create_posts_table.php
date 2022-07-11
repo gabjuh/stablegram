@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('social_auths', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('provider_name');
-            $table->string('provider_id')->unique();
-            $table->string('avatar');
+            $table->foreignId('user_id');
+            $table->string('file_name');
+            $table->string('description', 2000);
+            $table->integer('likes')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_auths');
+        Schema::dropIfExists('posts');
     }
 };

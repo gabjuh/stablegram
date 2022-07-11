@@ -4,9 +4,9 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="row">
-            <div class="col-3 d-flex justify-content">
+            <div class="col-4 d-flex justify-content-end">
                 <x-profile_image
-                    image="https://wtwp.com/wp-content/uploads/2015/06/placeholder-image.png"
+                    image="{{ $user->avatar ?: $image_placeholder }}"
                     size="150"
                     class="m-4"
                 />
@@ -19,10 +19,10 @@
                 <div class="d-flex justify-content-between">
                     <x-info_box
                         title="Posts"
-                        value="0"
+                        value="{{ $nrOfPosts }}"
                     />
                     <x-info_box
-                        title="Follower"
+                        title="Followers"
                         value="0"
                         class="mx-4"
                     />
@@ -35,12 +35,19 @@
             </div>
         </div>
         <div class="d-flex justify-content-center flex-wrap mt-4">
-            <x-post
-                image="https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true"
-                created="five minutes ago"
-                likes="1"
-                text="a lot of blabla"
-            />
+
+            @foreach ($posts as $post)
+
+                <x-post
+                    postId="{{ $post->id }}"
+                    userId="{{ $post->user_id }}"
+                    image="{{ $post->file_name }}"
+                    created="{{ $post->created_at }}"
+                    likes="{{ $post->likes }}"
+                    text="{{ $post->description }}"
+                    view="own"
+                />
+            @endforeach
         </div>
     </div>
 </div>

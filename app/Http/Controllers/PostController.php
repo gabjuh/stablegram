@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
-use App\Models\User;
-use App\Constants;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class ProfileController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,7 +37,15 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('file_name');
+        $file_name = date('Y-m-d-H_i_s').'.'.$file->extension();
+        $post = new Post;
+        $post->user_id = Auth::user()->id;
+        $post->file_name = $file_name;
+        $post->description = $request->description;
+        $post->save();
+        Storage::putFileAs('public/' .$request->user()->id, $request->file('file_name'), $file_name);
+        return redirect()->to('profile/' . Auth::user()->id);
     }
 
     /**
@@ -49,14 +56,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $nrOfPosts = Post::whereUserId($id)->count('post_id');
-
-        return view('profile', [
-            'user' => User::findOrFail($id),
-            'posts' => Post::whereUserId($id)->get(),
-            'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
-            'nrOfPosts' => $nrOfPosts,
-        ]);
+        //
     }
 
     /**
@@ -77,9 +77,9 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request )
     {
-        //
+        // dd($request->file(''));
     }
 
     /**
@@ -90,6 +90,7 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return back();
     }
 }

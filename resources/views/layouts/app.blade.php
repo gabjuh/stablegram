@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/compiled-4.20.0.min.css">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
@@ -58,6 +58,11 @@
                             @endif
                         @else
                             <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
+
+                            @if(isset(Auth::user()->avatar))
+                                <img class="rounded-circle ml-3" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}'s profile image" width="40" height="40" />
+                            @endif
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -65,7 +70,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="profile/2">
+                                    <a class="dropdown-item" href="profile/{{ Auth::user()->id }}">
                                         {{ __('Profile') }}
                                     </a>
 
@@ -91,6 +96,9 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled.min.js"></>
+    <script type="text/javascript" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/search-v4/search.min.js"></script>
+    <script src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/main.min.js"></script>
 </body>
 </html>
 
