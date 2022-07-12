@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 use App\Constants;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -50,12 +51,21 @@ class ProfileController extends Controller
     public function show($id)
     {
         $nrOfPosts = Post::whereUserId($id)->count('post_id');
+        $user = User::findOrFail($id);
+
+        if (isset($user->avatar)) {
+            $avatar = '/storage/'.$user->id.'/'.$user->avatar;
+        } elseif (isset($user->oauth_avatar)) {
+            $avatar = $user->oauth_avatar;
+        } else {
+            $avatar = Constants::IMAGE_PLACEHOLDER;
+        }
 
         return view('profile', [
-            'user' => User::findOrFail($id),
-            'posts' => Post::whereUserId($id)->get(),
-            'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
+            'user' => $user,
+            'posts' => Post::whereUserId($id)->get()->reverse(),
             'nrOfPosts' => $nrOfPosts,
+            'avatar' => $avatar,
         ]);
     }
 
@@ -67,7 +77,11 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $posts = Post::whereUserId(Auth::user()->id)->get();
+        return view('edit_profile', [
+            'username' => Auth::user()->name,
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -79,7 +93,16 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->name;
+        if ($request->file('avatar')) {
+            $file = $request->file('avatar');
+            $file_name = 'profile_image'.'.'.$file->extension();
+            Storage::putFileAs('public/' .$request->user()->id, $request->file('avatar'), $file_name);
+            $user->avatar = $file_name;
+        }
+        $user->save();
+        return redirect()->to('/profile/' .$id);
     }
 
     /**

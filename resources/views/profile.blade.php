@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-4 d-flex justify-content-end">
                 <x-profile_image
-                    image="{{ $user->avatar ?: $image_placeholder }}"
+                    image="{{ $avatar }}"
                     size="150"
                     class="m-4"
                 />
@@ -14,7 +14,7 @@
             <div class="col-6 ml-4">
                 <div>
                     <span class="fs-2">{{ $user->name }}</span>
-                    <a class="ml-4" href="#"><small>edit profile</small></a>
+                    <a class="ml-4" href="/profile/{{ $user->id }}/edit"><small>edit profile</small></a>
                 </div>
                 <div class="d-flex justify-content-between">
                     <x-info_box

@@ -26,8 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+
         return view('home', [
-            'posts' => Post::all(),
+            'posts' => Post::all()->reverse(),
             'users' => User::all(),
             'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
         ]);

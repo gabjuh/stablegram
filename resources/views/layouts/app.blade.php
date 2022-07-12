@@ -59,9 +59,42 @@
                         @else
                             <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
 
-                            @if(isset(Auth::user()->avatar))
-                                <img class="rounded-circle ml-3" src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}'s profile image" width="40" height="40" />
+                            @if(isset(Auth::user()->oauth_avatar) || isset(Auth::user()->avatar))
+                                <img
+                                    class="rounded-circle ml-3"
+                                    @if(isset(Auth::user()->avatar))
+                                        src="/storage/{{ Auth::user()->id }}/{{ Auth::user()->avatar }}"
+                                    @else
+                                        src="{{ Auth::user()->oauth_avatar }}"
+                                    @endif
+                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    width="40"
+                                    height="40"
+                                    style="object-fit:cover;"
+                                />
                             @endif
+{{--
+                            @isset(Auth::user()->oauth_avatar)
+                                <img
+                                    class="rounded-circle ml-3"
+                                    src="{{ Auth::user()->oauth_avatar }}"
+                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    width="40"
+                                    height="40"
+                                    style="object-fit:cover;"
+                                />
+                            @endisset
+
+                            @isset(Auth::user()->avatar)
+                                <img
+                                    class="rounded-circle ml-3"
+                                    src="/storage/{{ Auth::user()->id }}/{{ Auth::user()->avatar }}"
+                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    width="40"
+                                    height="40"
+                                    style="object-fit:cover;"
+                                />
+                            @endisset --}}
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -70,7 +103,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="profile/{{ Auth::user()->id }}">
+                                    <a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">
                                         {{ __('Profile') }}
                                     </a>
 
@@ -99,20 +132,6 @@
     <script type="text/javascript" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled.min.js"></>
     <script type="text/javascript" src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/search-v4/search.min.js"></script>
     <script src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/main.min.js"></script>
+    <script>
 </body>
 </html>
-
-
-{{-- @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-100 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif --}}

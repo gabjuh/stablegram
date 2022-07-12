@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('auth/{provider}', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
-Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show');
+Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile');
 
 // create (open form)
 Route::get('posts/create', function() {
@@ -37,9 +37,6 @@ Route::post('posts/', 'App\Http\Controllers\PostController@store')->name('store_
 
 Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy')->name('destroy_post');
 
-// Route::get('posts/create', function () {
-    // return view('create_post');
-// })->name('create_post');
-// Route::resource('posts', 'PostController')->only('')
+Route::get('profile/{id}/edit', 'App\Http\Controllers\ProfileController@edit')->name('edit_profile');
 
-// Route::resource('/memories', 'MemoryController')->except(['show'])->names('memories');
+Route::put('profile/{id}', 'App\Http\Controllers\ProfileController@update');

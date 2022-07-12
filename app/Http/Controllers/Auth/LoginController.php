@@ -80,14 +80,14 @@ class LoginController extends Controller
                 $user = User::create([
                     'email' => $oauthUser->getEmail(),
                     'name' => $oauthUser->getName(),
-                    'avatar' => $oauthUser->getAvatar(),
+                    'oauth_avatar' => $oauthUser->getAvatar(),
                 ]);
             }
 
             $user->oauth()->create([
                 'provider_id' => $oauthUser->getId(),
                 'provider_name' => $provider,
-                'avatar' => $oauthUser->avatar,
+                'oauth_avatar' => $oauthUser->avatar,
 
             ]);
 
