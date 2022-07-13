@@ -63,14 +63,14 @@
                                 <img
                                     class="rounded-circle ml-3"
                                     @if(isset(Auth::user()->avatar))
-                                        src="/storage/{{ Auth::user()->id }}/{{ Auth::user()->avatar }}"
+                                        src="{{ asset('/storage/' .Auth::user()->id .'/' .Auth::user()->avatar) }}"
                                     @else
                                         src="{{ Auth::user()->oauth_avatar }}"
                                     @endif
                                     alt="{{ Auth::user()->name }}'s profile image"
-                                    width="40"
                                     height="40"
-                                    style="object-fit:cover;"
+                                    width="40"
+                                    style="object-fit:cover; min-width:40px;"
                                 />
                             @endif
 {{--
