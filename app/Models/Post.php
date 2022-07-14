@@ -13,7 +13,6 @@ class Post extends Model
         'user_id',
         'file_name',
         'description',
-        'likes',
     ];
 
     public function user()

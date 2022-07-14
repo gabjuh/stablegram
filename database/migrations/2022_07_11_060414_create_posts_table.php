@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('file_name');
             $table->string('description', 2000);
-            $table->integer('likes')->nullable();
             $table->timestamps();
         });
     }

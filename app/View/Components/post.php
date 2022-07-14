@@ -14,7 +14,7 @@ class Post extends Component
 
     public $image;
     public $avatar;
-    public $created = 'lopikula';
+    public $created;
     public $likes;
     public $text;
 

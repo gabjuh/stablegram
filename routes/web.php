@@ -27,12 +27,12 @@ Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginControlle
 
 Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile');
 
-// create (open form)
+// create post (open the form)
 Route::get('posts/create', function() {
     return view('create_post');
 })->name('create_post');
 
-// store
+// store post
 Route::post('posts/', 'App\Http\Controllers\PostController@store')->name('store_post');
 
 Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy')->name('destroy_post');

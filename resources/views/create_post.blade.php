@@ -17,15 +17,10 @@
                             <div class="col-md-6">
 
                                 <div class="file-upload-wrapper">
-                                    <input type="file" name="file_name" id="file_name" class="file-upload" />
+                                    <input type="file" name="image" id="image" class="file-upload" />
                                 </div>
+                                <x-error name="image" />
 
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                         </div>
 
@@ -33,14 +28,16 @@
                             <label for="description" class="col-lg-4 col-form-label ">{{ __('description') }}</label>
 
                             <div class="col-lg-6">
-                                <textarea class="form-control" name="description" id="description" cols="30" rows="10" maxlength="2000" placeholder="Write a few lines about the image. (Maximal length: 2000 chars)">asd</textarea>
-
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <textarea
+                                    class="form-control"
+                                    name="description"
+                                    id="description"
+                                    cols="30"
+                                    rows="5"
+                                    maxlength="2000"
+                                    placeholder="Write a few lines about the image. (Maximal length: 2000 chars)"
+                                    >{{ old('description') }}</textarea>
+                                <x-error name="description" />
                             </div>
                         </div>
 

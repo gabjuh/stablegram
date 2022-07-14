@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -35,17 +36,27 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $file = $request->file('file_name');
+        $file = $request->file('image');
         $file_name = date('Y-m-d-H_i_s').'.'.$file->extension();
+        Storage::putFileAs('public/' .$request->user()->id, $request->file('image'), $file_name);
+
         $post = new Post;
-        $post->user_id = Auth::user()->id;
         $post->file_name = $file_name;
+
+        $post->user_id = Auth::user()->id;
         $post->description = $request->description;
         $post->save();
-        Storage::putFileAs('public/' .$request->user()->id, $request->file('file_name'), $file_name);
+
         return redirect()->to('profile/' . Auth::user()->id);
+    }
+
+    public function postList()
+    {
+        $posts = Post::all();
+
+        return view('');
     }
 
     /**
