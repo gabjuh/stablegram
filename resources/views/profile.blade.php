@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-4 d-flex justify-content-end">
                 <x-profile_image
-                    image="{{ $avatar }}"
+                    image="{{ $user->avatar }}"
                     size="150"
                     class="m-4"
                 />
@@ -39,13 +39,8 @@
             @foreach ($posts as $post)
 
                 <x-post
-                    postId="{{ $post->id }}"
-                    userId="{{ $post->user_id }}"
-                    image="{{ $post->file_name }}"
-                    created="{{ $post->created_at }}"
-                    likes="{{ $post->likes }}"
-                    text="{{ $post->description }}"
-                    view="own"
+                    :user="$user"
+                    :post="$post"
                 />
             @endforeach
         </div>

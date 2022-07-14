@@ -17,14 +17,16 @@ class Post extends Component
     public $created;
     public $likes;
     public $text;
+    public $timeline;
 
-    public function __construct($avatar, $image, $text, $created = 0, $likes = 0)
+    public function __construct($avatar, $image, $text, $created = 0, $likes = 0, $timeline = false)
     {
         $this->avatar = $avatar;
         $this->image = $image;
         $this->text = $text;
         $this->likes = $likes;
         $this->created = $created;
+        $this->timeline = $timeline;
     }
 
     /**

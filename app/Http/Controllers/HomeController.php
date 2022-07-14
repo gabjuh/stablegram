@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Constants;
 use App\Models\Post;
 use App\Models\User;
+use App\Http\Controllers\AvatarController;
 
 class HomeController extends Controller
 {
@@ -26,11 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
+        $users = User::select('id', 'name', 'oauth_avatar', 'avatar')->get();
+        $users = AvatarController::getAvatars($users);
         return view('home', [
+            'users' => $users,
             'posts' => Post::all()->reverse(),
-            'users' => User::all(),
             'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
         ]);
     }

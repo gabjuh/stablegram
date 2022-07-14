@@ -59,37 +59,43 @@
                         @else
                             <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
 
-                            @if(isset(Auth::user()->oauth_avatar) || isset(Auth::user()->avatar))
+                            @php
+                                $user = Auth::user();
+                            @endphp
+
+
+                            @if(isset($user->oauth_avatar) || isset($user->avatar))
                                 <img
                                     class="rounded-circle ml-3"
-                                    @if(isset(Auth::user()->avatar))
-                                        src="{{ asset('/storage/' .Auth::user()->id .'/' .Auth::user()->avatar) }}"
+                                    @if(isset($user->avatar))
+                                        {{-- src="{{ asset('/storage/' .$user->id .'/' .$user->avatar) }}" --}}
+                                        src="{{ asset('storage/' .$user->avatar) }}"
                                     @else
-                                        src="{{ Auth::user()->oauth_avatar }}"
+                                        src="{{ $user->oauth_avatar }}"
                                     @endif
-                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    alt="{{ $user->name }}'s profile image"
                                     height="40"
                                     width="40"
                                     style="object-fit:cover; min-width:40px;"
                                 />
                             @endif
 {{--
-                            @isset(Auth::user()->oauth_avatar)
+                            @isset($user->oauth_avatar)
                                 <img
                                     class="rounded-circle ml-3"
-                                    src="{{ Auth::user()->oauth_avatar }}"
-                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    src="{{ $user->oauth_avatar }}"
+                                    alt="{{ $user->name }}'s profile image"
                                     width="40"
                                     height="40"
                                     style="object-fit:cover;"
                                 />
                             @endisset
 
-                            @isset(Auth::user()->avatar)
+                            @isset($user->avatar)
                                 <img
                                     class="rounded-circle ml-3"
-                                    src="/storage/{{ Auth::user()->id }}/{{ Auth::user()->avatar }}"
-                                    alt="{{ Auth::user()->name }}'s profile image"
+                                    src="/storage/{{ $user->id }}/{{ $user->avatar }}"
+                                    alt="{{ $user->name }}'s profile image"
                                     width="40"
                                     height="40"
                                     style="object-fit:cover;"
@@ -98,12 +104,12 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ $user->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">
+                                    <a class="dropdown-item" href="/profile/{{ $user->id }}">
                                         {{ __('Profile') }}
                                     </a>
 

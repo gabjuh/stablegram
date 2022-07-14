@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Upload Image') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/posts" enctype="multipart/form-data"> {{-- action: {{ route('post') }} --}}
+                    <form method="POST" action="{{ route('store_post') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="row lg-3">
-                            <label for="description" class="col-lg-4 col-form-label ">{{ __('description') }}</label>
+                            <label for="description" class="col-lg-4 col-form-label text-right">{{ __('description') }}</label>
 
                             <div class="col-lg-6">
                                 <textarea
@@ -41,15 +41,13 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0 mt-3">
-                            <div class="col-md-8 ">
-                                <a href="{{ url()->previous() }}" type="submit" class="btn btn-secondary">
-                                    {{ __('Cancel') }}
-                                </a>
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Save') }}
-                                </button>
-                            </div>
+                        <div class="float-right mt-3">
+                            <a href="{{ url()->previous() }}" type="submit" class="btn btn-secondary">
+                                {{ __('Cancel') }}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Save') }}
+                            </button>
                         </div>
                     </form>
                 </div>

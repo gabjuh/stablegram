@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Constants;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\AvatarController;
 
 class ProfileController extends Controller
 {
@@ -52,20 +53,12 @@ class ProfileController extends Controller
     {
         $nrOfPosts = Post::whereUserId($id)->count('post_id');
         $user = User::findOrFail($id);
-
-        if (isset($user->avatar)) {
-            $avatar = '/storage/'.$user->id.'/'.$user->avatar;
-        } elseif (isset($user->oauth_avatar)) {
-            $avatar = $user->oauth_avatar;
-        } else {
-            $avatar = Constants::IMAGE_PLACEHOLDER;
-        }
+        $user = AvatarController::getAvatar($user);
 
         return view('profile', [
             'user' => $user,
             'posts' => Post::whereUserId($id)->get()->reverse(),
             'nrOfPosts' => $nrOfPosts,
-            'avatar' => $avatar,
         ]);
     }
 
@@ -96,10 +89,8 @@ class ProfileController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         if ($request->file('avatar')) {
-            $file = $request->file('avatar');
-            $file_name = 'profile_image'.'.'.$file->extension();
-            Storage::putFileAs('public/' .$request->user()->id, $request->file('avatar'), $file_name);
-            $user->avatar = $file_name;
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
         }
         $user->save();
         return redirect()->to('/profile/' .$id);
