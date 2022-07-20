@@ -42,15 +42,17 @@
 
         </div>
 
-        <div class="d-flex">
-            <small class="mr-3">{{ $post->created_at }}</small>
+        @if (Auth::user()->id === $user->id)
+            <div class="d-flex">
+                <small class="mr-3">{{ $post->created_at }}</small>
 
-            <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data" >
-                @csrf
-                @method('delete')
-                <input class="btn btn-link m-0 p-0" type="submit" value="Delete post">
-            </form>
-        </div>
+                <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data" >
+                    @csrf
+                    @method('delete')
+                    <input class="btn btn-link m-0 p-0" type="submit" value="Delete post">
+                </form>
+            </div>
+        @endif
     </p>
     <p>{{ $post->description }}</p>
 </div>
