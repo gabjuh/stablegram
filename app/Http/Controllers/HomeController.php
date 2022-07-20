@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Constants;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AvatarController;
 
 class HomeController extends Controller
@@ -33,6 +34,7 @@ class HomeController extends Controller
             'users' => $users,
             'posts' => Post::all()->reverse(),
             'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
+            'following' => Auth::user()->following()->get(),
         ]);
     }
 
