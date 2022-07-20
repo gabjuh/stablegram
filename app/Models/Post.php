@@ -19,4 +19,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function likedBy()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

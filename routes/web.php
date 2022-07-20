@@ -40,3 +40,8 @@ Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy')->name
 Route::get('profile/{id}/edit', 'App\Http\Controllers\ProfileController@edit')->name('edit_profile');
 
 Route::put('profile/{id}', 'App\Http\Controllers\ProfileController@update');
+
+// Route::post('posts/{post_id}', 'App\Http\Controllers\LikeController@like')->name('post.like');
+Route::post('posts/like/{post_id}', 'App\Http\Controllers\LikeController@like');
+
+Route::post('follow/{user_id}', 'App\Http\Controllers\FollowController@follow')->name('follow_user');

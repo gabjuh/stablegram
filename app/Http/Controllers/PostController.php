@@ -46,12 +46,7 @@ class PostController extends Controller
         return redirect()->to('profile/' . Auth::user()->id);
     }
 
-    public function postList()
-    {
-        $posts = Post::all();
 
-        return view('');
-    }
 
     /**
      * Display the specified resource.

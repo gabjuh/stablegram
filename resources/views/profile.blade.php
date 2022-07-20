@@ -23,15 +23,23 @@
                     />
                     <x-info_box
                         title="Followers"
-                        value="0"
+                        value="{{ $followers }}"
                         class="mx-4"
                     />
                     <x-info_box
                         title="Follows"
-                        value="0"
+                        value="{{ $following }}"
                     />
                 </div>
-                <a class="btn btn-primary mt-3" href="{{ route('create_post') }}">add post</a>
+                @if(Auth::user()->id === $user->id)
+                    <a class="btn btn-primary mt-3" href="{{ route('create_post') }}">add post</a>
+                @else
+                    <form action="{{ route('follow_user', ['user_id' => $user->id]) }}" method="POST">
+                        @csrf
+                        <button class="btn btn-primary mt-3" type="submit">{{ $followedByCurrentUser ? 'un' : '' }}follow</button>
+                    </form>
+                @endif
+
             </div>
         </div>
         <div class="d-flex justify-content-center flex-wrap mt-4">

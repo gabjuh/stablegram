@@ -35,4 +35,11 @@ class HomeController extends Controller
             'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
         ]);
     }
+
+
+    // public function countLikes($post_id)
+    // {
+    //     $post = Post::find($post_id);
+    //     return $post->likedBy()->count();
+    // }
 }

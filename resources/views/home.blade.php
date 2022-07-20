@@ -8,11 +8,15 @@
                 @foreach ($posts as $post)
                     @php
                         $user = $users[$post->user_id - 1];
+                        $nrOfLikes = $post->likedBy()->count();
+                        $likedByAuthUser = $post->likedBy()->find(Auth::user()->id);
                     @endphp
 
                     <x-post
                         :user="$user"
                         :post="$post"
+                        :nrOfLikes="$nrOfLikes"
+                        :likedByAuthUser="$likedByAuthUser"
                         timeline="true"
                     />
                 @endforeach

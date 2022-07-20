@@ -53,12 +53,27 @@ class ProfileController extends Controller
     {
         $nrOfPosts = Post::whereUserId($id)->count('post_id');
         $user = User::findOrFail($id);
-        $user = AvatarController::getAvatar($user);
+        // $user = AvatarController::getAvatar($user);
+
+        // $posts = Post::find(['user_id' => $id]);
+        $nrOfLikes = 12; // $post ? $post->likedBy()->count() : 0;
+        $likedByAuthUser = 23; // $post ? $post->likedBy()->find(Auth::user()->id) : null;
+
+        $followedByCurrentUser = $user->followedBy()->find(Auth::user()) !== null;
+        $followers = $user->followedBy()->count();
+        $following = $user->following()->count();
+        // $followedByCurrentUser = Auth::user()->following->all();
+        // dd($followedByAuthUser);Auth::user()
 
         return view('profile', [
             'user' => $user,
             'posts' => Post::whereUserId($id)->get()->reverse(),
+            'followers' => $followers,
+            'following' => $following,
             'nrOfPosts' => $nrOfPosts,
+            'likedByAuthUser' => $likedByAuthUser,
+            'followedByCurrentUser' => $followedByCurrentUser,
+            'nrOfLikes' => $nrOfLikes,
         ]);
     }
 
