@@ -7,8 +7,12 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
-    public function searchUser($name) {
-        $users = User::where('name', $name)->all();
-
+    public function searchUser(Request $request) {
+        $name = $request->post('search_user');
+        $users = User::where('name', 'LIKE', '%' . $name . '%')->get();
+        return view('user_search', [
+            'users' => $users,
+            'name' => $name,
+        ]);
     }
 }

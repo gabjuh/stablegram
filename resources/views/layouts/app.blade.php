@@ -36,7 +36,9 @@
                     @auth
                         <ul class="navbar-nav me-auto">
                             <li>
-                                <a href="{{ route('create_post') }}" class="btn btn-primary">+ Post Picture</a>
+                                <form action="{{ route('create_post') }}" methode="get">
+                                    <button class="btn btn-primary" {{ Auth::user()->hasVerifiedEmail() ? '' : 'disabled' }}>+ Post Picture</button>
+                                </form>
                             </li>
                         </ul>
                     @endauth
@@ -57,7 +59,10 @@
                                 </li>
                             @endif
                         @else
-                            <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
+                            <form action="{{ route('search_user') }}" method="POST">
+                                @csrf
+                                <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
+                            </form>
 
                             @php
                                 $user = Auth::user();
@@ -131,7 +136,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="">
+            @if( Auth::check() && !Auth::user()->hasVerifiedEmail() )
+                <div class="alert alert-warning" style="margin-top:64px;">Prease verify your email address!</div>
+            @endif
             @yield('content')
         </main>
     </div>

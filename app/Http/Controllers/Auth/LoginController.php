@@ -54,7 +54,7 @@ class LoginController extends Controller
     {
         try {
             $oauthUser = Socialite::driver($provider)->user();
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             return redirect('/login');
         }
 
@@ -82,6 +82,7 @@ class LoginController extends Controller
                     'name' => $oauthUser->getName(),
                     'oauth_avatar' => $oauthUser->getAvatar(),
                 ]);
+                $user->markEmailAsVerified();
             }
 
             $user->oauth()->create([
