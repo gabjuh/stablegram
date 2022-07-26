@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserFollowed extends Mailable
 {
@@ -30,9 +31,11 @@ class UserFollowed extends Mailable
      */
     public function build()
     {
+        $user = User::findOrFail(Auth::user()->id);
+        $user->setAvatar();
         return $this->from('noreply@stablegram.test')
             ->markdown('mail.user_followed', [
-                'follower' => Auth::user(),
+                'follower' => $user,
                 'recipient' => $this->following,
             ]);
     }
