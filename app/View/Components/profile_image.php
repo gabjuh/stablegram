@@ -11,8 +11,10 @@ class profile_image extends Component
      *
      * @return void
      */
+
     public $image;
     public $size;
+
     public function __construct($image, $size)
     {
         $this->image = $image;

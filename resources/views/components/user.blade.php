@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-2 d-flex align-items-center">
+    <div class="col-1 d-flex align-items-center" style="min-width:50px;">
         <x-profile_image
             image="{{ $user->avatar }}"
             size="40"
@@ -8,7 +8,7 @@
     </div>
     <div class="col-6 ml-3">
         <div style="margin-top: 13px;">
-            <span class="fs-5 ml-2">
+            <span class="fs-5">
                 <a href="profile/{{ $user->id }}">
                     {{ $user->name }}
                 </a>

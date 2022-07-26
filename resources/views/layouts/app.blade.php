@@ -61,7 +61,14 @@
                         @else
                             <form action="{{ route('search_user') }}" method="POST">
                                 @csrf
-                                <input class="form-control" type="text" name="search_user" id="search_user" placeholder="Search users...">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="search_user"
+                                    id="search_user"
+                                    placeholder="Search users..."
+                                    value="{{ old('search_user') }}"
+                                >
                             </form>
 
                             @php
@@ -73,7 +80,6 @@
                                 <img
                                     class="rounded-circle ml-3"
                                     @if(isset($user->avatar))
-                                        {{-- src="{{ asset('/storage/' .$user->id .'/' .$user->avatar) }}" --}}
                                         src="{{ asset('storage/' . $user->avatar) }}"
                                     @else
                                         src="{{ $user->oauth_avatar }}"
@@ -84,28 +90,6 @@
                                     style="object-fit:cover; min-width:40px;"
                                 />
                             @endif
-{{--
-                            @isset($user->oauth_avatar)
-                                <img
-                                    class="rounded-circle ml-3"
-                                    src="{{ $user->oauth_avatar }}"
-                                    alt="{{ $user->name }}'s profile image"
-                                    width="40"
-                                    height="40"
-                                    style="object-fit:cover;"
-                                />
-                            @endisset
-
-                            @isset($user->avatar)
-                                <img
-                                    class="rounded-circle ml-3"
-                                    src="/storage/{{ $user->id }}/{{ $user->avatar }}"
-                                    alt="{{ $user->name }}'s profile image"
-                                    width="40"
-                                    height="40"
-                                    style="object-fit:cover;"
-                                />
-                            @endisset --}}
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -74,7 +74,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * If there were none of these set, the method uses the predefined image placeholder.
      * So, there is no situation, when the profile image stays blank.
      */
-
     public function setAvatar ()
     {
         if (isset($this->avatar)) {
@@ -87,6 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this;
     }
 
+    /**
+     * The same as before, but loops through an array of objects.
+    */
     public static function setAvatars ($users)
     {
         foreach($users as $user) {
@@ -94,6 +96,4 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $users;
     }
-
-
 }

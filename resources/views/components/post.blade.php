@@ -23,7 +23,7 @@
                 @endif
             </form>
 
-            <p class="ml-3">{{ $post->likedBy != null ? $post->likedBy->count() : 0  }} likes</p>
+            <p class="ml-3">{{ $post->likedBy != null ? $post->likedBy->count() : 0  }} like(s)</p>
 
         </div>
 
