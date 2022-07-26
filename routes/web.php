@@ -26,6 +26,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile');
+
+    Route::get('profile/{id}/edit', 'App\Http\Controllers\ProfileController@edit')->name('edit_profile');
+
+    Route::put('profile/{id}', 'App\Http\Controllers\ProfileController@update');
+
+    Route::post('search', 'App\Http\Controllers\SearchController@searchUser')->name('search_user');
+
+    Route::post('posts/like/{post_id}', 'App\Http\Controllers\LikeController@like');
+
+    Route::post('follow/{user_id}', 'App\Http\Controllers\FollowController@follow')->name('follow_user');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -40,16 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy')->name('destroy_post');
 
-    Route::get('profile/{id}/edit', 'App\Http\Controllers\ProfileController@edit')->name('edit_profile');
-
-    Route::put('profile/{id}', 'App\Http\Controllers\ProfileController@update');
-
     // Route::post('posts/{post_id}', 'App\Http\Controllers\LikeController@like')->name('post.like');
-    Route::post('posts/like/{post_id}', 'App\Http\Controllers\LikeController@like');
-
-    Route::post('follow/{user_id}', 'App\Http\Controllers\FollowController@follow')->name('follow_user');
-
-    Route::post('search', 'App\Http\Controllers\SearchController@searchUser')->name('search_user');
 
 });
 

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-4 d-flex justify-content-end">
                 <x-profile_image
-                    image="{{ $user->avatar }}"
+                    image="{{ asset($user->avatar) }}"
                     size="150"
                     class="m-4"
                 />

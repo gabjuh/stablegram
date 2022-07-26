@@ -74,7 +74,7 @@
                                     class="rounded-circle ml-3"
                                     @if(isset($user->avatar))
                                         {{-- src="{{ asset('/storage/' .$user->id .'/' .$user->avatar) }}" --}}
-                                        src="{{ asset('storage/' .$user->avatar) }}"
+                                        src="{{ asset('storage/' . $user->avatar) }}"
                                     @else
                                         src="{{ $user->oauth_avatar }}"
                                     @endif
@@ -138,7 +138,7 @@
 
         <main class="py-4" style="">
             @if( Auth::check() && !Auth::user()->hasVerifiedEmail() )
-                <div class="alert alert-warning" style="margin-top:64px;">Prease verify your email address!</div>
+                <div class="alert alert-warning" style="margin-top:64px;">Please verify your email address!</div>
             @endif
             @yield('content')
         </main>

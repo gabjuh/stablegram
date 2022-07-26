@@ -1,22 +1,7 @@
 <div class="card p-2 m-2" style="border-radius:.7rem; max-width: 304px;">
     <div class="row">
         @isset ($timeline)
-            <div class="col-2 d-flex align-items-center">
-                <x-profile_image
-                    image="{{ $user->avatar }}"
-                    size="40"
-                    class="m-2"
-                />
-            </div>
-            <div class="col-6">
-                <div class="mt-2">
-                    <span class="fs-5 ml-2">
-                        <a href="profile/{{ $user->id }}">
-                            {{ $user->name }}
-                        </a>
-                    </span>
-                </div>
-            </div>
+            <x-user :user="$user"/>
         @endisset
     </div>
     <img

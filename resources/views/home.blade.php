@@ -26,7 +26,7 @@
         <div class="card w-25 position-fixed p-2" style="margin-left:350px; margin-top: 32px; border-radius:.7rem;">
             <span>Friends</span>
             @foreach($following as $user)
-                <p>{{ $user->name }}</p>
+                <x-user :user="$user"/>
             @endforeach
         </div>
     </div>

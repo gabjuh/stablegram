@@ -28,13 +28,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::select('id', 'name', 'oauth_avatar', 'avatar')->get();
-        $users = AvatarController::getAvatars($users);
+        $users = AvatarController::getAvatars(
+            User::select('id', 'name', 'oauth_avatar', 'avatar')->get()
+        );
+        $following = AvatarController::getAvatars(
+            Auth::user()->following()->get()
+        );
         return view('home', [
             'users' => $users,
             'posts' => Post::all()->reverse(),
-            'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
-            'following' => Auth::user()->following()->get(),
+            // 'image_placeholder' => Constants::IMAGE_PLACEHOLDER,
+            'following' => $following,
         ]);
     }
 

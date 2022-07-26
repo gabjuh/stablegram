@@ -10,7 +10,10 @@
             <span>Hits</span>
             @foreach($users as $user)
                 <div class="card w-25 p-2" style="margin-left:350px; margin-top: 32px; border-radius:.7rem;">
-                    <p>{{ $user->name }}</p>
+                    @php
+                        // dd($user->avatar)
+                    @endphp
+                    <x-user :user="$user"/>
                 </div>
             @endforeach
         @endif

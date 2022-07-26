@@ -7,7 +7,7 @@ use App\Constants;
 class AvatarController extends Controller
 {
     /**
-     * This method helps to control the avatars in tree different priorities.
+     * This method helps to control the avatars in three different priorities.
      * The variable $user->avatar is might defined. In that case there will be no changes.
      *
      * If there was not set any avatar by the user, but a url for the third party avatar is
