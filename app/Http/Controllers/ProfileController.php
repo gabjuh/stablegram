@@ -53,7 +53,7 @@ class ProfileController extends Controller
     {
         $nrOfPosts = Post::whereUserId($id)->count('post_id');
         $user = User::findOrFail($id);
-        $user = AvatarController::getAvatar($user);
+        $user->setAvatar();
 
         // $posts = Post::find(['user_id' => $id]);
         $nrOfLikes = 12; // $post ? $post->likedBy()->count() : 0;

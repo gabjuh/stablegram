@@ -80,7 +80,7 @@ class LoginController extends Controller
                 $user = User::create([
                     'email' => $oauthUser->getEmail(),
                     'name' => $oauthUser->getName(),
-                    'oauth_avatar' => $oauthUser->getAvatar(),
+                    'oauth_avatar' => $oauthUser->setAvatar(),
                 ]);
                 $user->markEmailAsVerified();
             }
@@ -89,7 +89,6 @@ class LoginController extends Controller
                 'provider_id' => $oauthUser->getId(),
                 'provider_name' => $provider,
                 'oauth_avatar' => $oauthUser->avatar,
-
             ]);
 
             return $user;

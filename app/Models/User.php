@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Constants;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -62,4 +63,37 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'follower_user_id');
     }
+
+    /**
+     * This method helps to control the avatars in three different priorities.
+     * The variable $user->avatar is might defined. In that case there will be no changes.
+     *
+     * If there was not set any avatar by the user, but a url for the third party avatar is
+     * available, it copies to the place of the avatar.
+     *
+     * If there were none of these set, the method uses the predefined image placeholder.
+     * So, there is no situation, when the profile image stays blank.
+     */
+
+    public function setAvatar ()
+    {
+        if (isset($this->avatar)) {
+            $this->avatar = asset('storage/' .$this->avatar);
+        } elseif (isset($this->oauth_avatar)) {
+            $this->avatar = $this->oauth_avatar;
+        } else {
+            $this->avatar = Constants::IMAGE_PLACEHOLDER;
+        }
+        return $this;
+    }
+
+    public static function setAvatars ($users)
+    {
+        foreach($users as $user) {
+            $user->setAvatar();
+        }
+        return $users;
+    }
+
+
 }

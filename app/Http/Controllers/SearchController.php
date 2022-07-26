@@ -10,9 +10,7 @@ class SearchController extends Controller
 {
     public function searchUser(Request $request) {
         $name = $request->post('search_user');
-        $users = AvatarController::getAvatars(
-            User::where('name', 'LIKE', '%' . $name . '%')->get()
-        );
+        $users = User::setAvatars(User::where('name', 'LIKE', '%' . $name . '%')->get());
         return view('user_search', [
             'users' => $users,
             'name' => $name,

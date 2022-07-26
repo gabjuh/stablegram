@@ -12,14 +12,16 @@ class UserFollowed extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $following;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($following)
     {
-        //
+        $this->following = $following;
     }
 
     /**
@@ -30,9 +32,9 @@ class UserFollowed extends Mailable
     public function build()
     {
         return $this->from('noreply@stablegram.test')
-            ->markdown('emails.user_followed', [
-                'user' => Auth::user(),
-                // 'follower' =>
+            ->markdown('mail.user_followed', [
+                'follower' => Auth::user(),
+                'recipient' => $this->following,
             ]);
     }
 }
